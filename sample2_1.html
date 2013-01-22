@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<title>jqueryによるタブ切替</title>
+<link rel="stylesheet" type="text/css"  href="css/default.css" />
+<style type="text/css">
+ @import "http://www.finefinefine.jp/wp/wp-content/themes/mystique/style.css";
+ @import "http://www.finefinefine.jp/date/2010/10/?mystique=css";
+#header-wrapper {
+  height: 60px;
+}
+#header {
+  height: 60px;
+}
+#site-title {
+  padding: 10px 0 0 0;
+}
+h5 {
+  margin-top: 20px;
+}
+#sample {
+  margin-top: 20px;
+}
+#main {
+  clear: left;
+  margin: 20px auto;
+  padding: 5px 20px;
+  width: 900px;
+}
+#tab li {
+  float: left;
+  padding-left: 3px;
+  list-style: none;
+  cursor: pointer;
+  background: url(images/bg_tab_left_off.png) no-repeat;
+}
+#tab li span {
+  display: inline-block;
+  padding: 10px 10px 10px 7px;
+  height: 20px;
+  background: url(images/bg_tab_right_off.png) no-repeat right;
+}
+#tab li.select {
+  color: #fff;
+  background: url(images/bg_tab_left_on.png) no-repeat;
+}
+#tab li.select span {
+  background: url(images/bg_tab_right_on.png) no-repeat right;
+}
+.disnon {
+  display: none;
+}
+.content_wrap {
+  clear: left;
+  width: 600px;
+  height: 100px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 100px;
+  background: #ccc;
+  color: #fff;
+}
+</style>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">google.load("jquery", "1.4");</script>
+<script type="text/javascript"> 
+//<![CDATA[
+$(function() {
+	$("#tab li").click(function() {
+		var num = $("#tab li").index(this);
+		$(".content_wrap").addClass('disnon');
+		$(".content_wrap").eq(num).removeClass('disnon');
+		$("#tab li").removeClass('select');
+		$(this).addClass('select')
+	});
+});
+$.getJSON(
+    "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20120723?callback=?", 
+    {keyword:"AKB 大島",applicationId:"1062371929930006356",imageFlag:"1",affiliateId:"10a53200.32c80260.10a53201.6a4c20e5"},
+        function(data){
+            $.each(data.Items, function(i,item){
+                $("<a>").attr("href", item.Item.affiliateUrl).appendTo("#images_akb")
+               .append($("<img/>").attr("src", item.Item.mediumImageUrls[0].imageUrl));
+            });
+        }
+);
+$.getJSON(
+    "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20120723?callback=?", 
+    {keyword:"きゃりーぱみゅぱみゅ",applicationId:"1062371929930006356",imageFlag:"1",affiliateId:"10a53200.32c80260.10a53201.6a4c20e5"},
+        function(data){
+            $.each(data.Items, function(i,item){
+                $("<a>").attr("href", item.Item.affiliateUrl).appendTo("#images_kary")
+               .append($("<img/>").attr("src", item.Item.mediumImageUrls[0].imageUrl));
+            });
+        }
+);
+
+$.getJSON(
+    "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20120723?callback=?", 
+    {keyword:"安室奈美恵",applicationId:"1062371929930006356",imageFlag:"1",affiliateId:"10a53200.32c80260.10a53201.6a4c20e5"},
+        function(data){
+            $.each(data.Items, function(i,item){
+                $("<a>").attr("href", item.Item.affiliateUrl).appendTo("#images_amuro")
+               .append($("<img/>").attr("src", item.Item.mediumImageUrls[0].imageUrl));
+            });
+        }
+);
+
+
+
+//]]>
+</script> 
+
+</head>
+<body class="archive date col-2-right fixed loggedin browser-chrome">
+
+<div id="page">
+
+<div class="page-content header-wrapper">
+
+<div id="header">
+
+<div id="site-title" class="clear-block">
+</div><!--site-title-->
+
+</div><!--header-->
+
+</div><!--page-content-->
+
+<div id="main">
+
+<h5>Japanese Airtist</h5>
+
+<div id="sample">
+<ul id="tab">
+<li class="select"><span>AKB</span></li>
+<li><span>Kary</span></li>
+<li><span>Amuro</span></li>
+</ul>
+<div class="content_wrap disnon"><div id="images_akb"></div></div>
+<div class="content_wrap disnon"><div id="images_kary"></div></div>
+<div class="content_wrap disnon"><div id="images_amuro"></div></div>
+</div><!--sample-->
+
+</div><!--main-->
+
+</div><!--page-->
+
+</body>
+</html>
